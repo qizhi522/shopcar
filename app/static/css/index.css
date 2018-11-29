@@ -1,0 +1,113 @@
+.content{
+    margin: 0 auto;
+    width: 1200px;
+}
+#header_wrapper{
+    height: 60px;
+    background: #ffffff;
+}
+.header{
+    height: 60px;
+    background: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0 20px;
+}
+.header>a{
+    display: flex;
+}
+.header>a h1{
+    text-indent: -9999px;
+}
+.header>a i{
+    font-size: 32px;
+    color: #eb0028;
+}
+.header .nav{
+    display: flex;
+}
+.header .nav li{
+    font-size: 14px;
+    cursor: pointer;
+}
+.header .nav li:nth-child(1){
+    position: relative;
+}
+.header .nav li:nth-child(1)>span{
+    color: #eb0028;
+    font-size: 75%;
+    position: absolute;
+    top: 17px;
+    right: 7px;
+}
+.header .nav li a{
+    height: 60px;
+    display: inline-block;
+    line-height: 60px;
+    padding: 0 35px;
+}
+.header .user{
+    display: flex;
+}
+.header .user i{
+    color: #828282;
+    font-size: 20px;
+    padding: 0 15px;
+}
+.header .user i:hover{
+    color: #101920;
+}
+.header .user>li .downlist{
+    position: relative;
+}
+.header .user>li .downlist ul{
+    display: none;
+    border: 1px solid lightgray;
+    position: absolute;
+    top: 60px;
+    left: -167px;
+    width: 280px;
+    height: 256px;
+    background: #ffffff;
+    box-sizing: border-box;
+    padding: 0 20px;
+    padding-top: 20px; 
+}
+.header .user>li .downlist ul li{
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid lightgray;
+}
+.header .user>li .downlist ul li>a{
+    display: block;
+    width: 280px;
+}
+.header .user>li .downlist ul li:nth-child(4){
+    border: 0;
+    padding-top: 10px; 
+}
+.header .user>li .downlist ul li:nth-child(4)>a{
+    color: #0099cc;
+}
+.header .user>li .downlist ul li:nth-child(4)>a:hover{
+    text-decoration: underline;
+    color: #0099cc;
+}
+.header .user>li .downlist:hover ul{
+    display: block;
+}
+.header .user>li>.downlist>a{
+    display: inline-block;
+    height: 60px;
+    line-height: 60px;
+}
+.header .user>li>a{
+    display: inline-block;
+    height: 60px;
+    line-height: 60px;
+}
+.header .user li:nth-child(1)>ul{
+    position: absolute;
+}
