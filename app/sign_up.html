@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/iconfont.css">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/sign_up.css">
+    <link rel="stylesheet" href="static/css/reset.css">
+    <link rel="stylesheet" href="static/css/iconfont.css">
+    <link rel="stylesheet" href="static/css/index.css">
+    <link rel="stylesheet" href="static/css/sign_up.css">
     <title>一加注册</title>
 </head>
+
 <body>
     <div id="header_wrapper">
         <div class="header content">
-            <a href="#" title="一加官网"><i class="iconfont icon-yijia"></i><h1>一加官网</h1></a>
+            <a href="#" title="一加官网"><i class="iconfont icon-yijia"></i>
+                <h1>一加官网</h1>
+            </a>
             <ul class="nav">
                 <li><a href="#">OnePlus 6T</a><span>New</span></li>
                 <li><a href="#">New OnePlus 6</a></li>
@@ -42,22 +46,127 @@
     <div id="sign_up_wrapper">
         <div class="sign_up content">
             <div class="s_up">
-                <form action="" method="get">
+                <form action="" method="get" class="form-box" autocomplete="on" onsubmit="return false;">
                     <h2>注册</h2>
-                    <div>
+                    <div class="username">
                         <span>+86</span>
-                        <input type="text" name="iphone"/>
+                        <input type="text" name="phone" placeholder="手机号" data-error="请输入11位手机号码" />
+                        <p></p>
                     </div>
-                    <input type="password" name="password" />
+                    <div class="mima">
+                        <input type="password" name="password" placeholder="密码" data-error="请确认你的密码是否满足以下条件" />
+                        <i class="iconfont icon-mima2"></i>
+                        <p></p>
+                        <ul class="checkUl">
+                            <li>6 ～16 位字符</li>
+                            <li>包含字母</li>
+                            <li>包含数字</li>
+                        </ul>
+                    </div>
                     <div class="check">
-                        <span></span>
+                        请按住滑块，拖动到最右边
+                        <span>&gt;&gt;</span>
                     </div>
-                    <p></p>
-                    <button type="submit">创建账号</button>
+                    <p>注册 OnePlus，即表示你同意 OnePlus 的<br /><a href="#">使用条款</a> 和 <a href="#">隐私政策</a></p>
+                    <div class="sub">
+                        
+                        <button name="submit" class="submit" type="submit">创建账号<div class="bg"></div></button>
+                    </div>
                     <a href="#">登录</a>
                 </form>
             </div>
         </div>
     </div>
+    <script src="static/js/move1.1.0.js"></script>
+    <script>
+        var checkInput = {
+            password(str) {
+                var reg = /^\w{6,16}$/;
+                return reg.test(str);
+            },
+            phone(str) {
+                var reg = /^1[35789]\d{9}$/;
+                return reg.test(str);
+            }
+        }
+        var moveSubmit = (function () {
+
+            return {
+                init(ele) {
+                    this.$el = document.querySelector(ele);
+                    this.$inputAll = this.$el.querySelectorAll('input');
+                    this.$checkUl = this.$el.querySelector('.checkUl');
+                    this.$checkLi = this.$checkUl.querySelectorAll('li');
+                    console.log(this.$checkLi[1])
+                    this.event()
+                },
+                event() {
+                    var _this = this;
+                    for (let i = 0; i < this.$inputAll.length; i++) {
+                        this.$inputAll[i].onblur = function () {
+                            var $p = this.nextElementSibling;
+                            if (this.value == '') {
+                                $p.className = 'text-danger';
+                                $p.innerHTML = '内容不可以为空';
+                            } else {
+                                // 调用对应的方法, 把文本值传入
+                                var bool = checkInput[this.name](this.value);
+                                if (bool) {
+                                    // 验证成功
+                                    $p.className = 'text-success';
+                                    $p.innerHTML = '验证成功';
+                                } else {
+                                    // 验证失败
+                                    $p.className = 'text-danger';
+                                    $p.innerHTML = this.getAttribute('data-error');
+                                }
+                            }
+                        }
+                    }
+                    this.$el['submit'].onclick = function () {
+                        var $pAll = _this.$el.querySelectorAll('p');
+                        for (let i = 0; i < $pAll.length; i++) {
+                            if ($pAll[i].className.indexOf('text-success') == -1) {
+                                $pAll[i].previousElementSibling.focus();
+                                return;
+                            }
+                        }
+                    }
+                    this.$el['password'].onfocus = function () {
+                        _this.$checkUl.style.display = 'block';
+                    }
+                    this.$el['password'].oninput = function () {
+                        // console.log(this.value);
+                        var reg1 = /\d/,
+                        reg2 = /\w/,
+                        reg3 = /^\w{6,16}$/;
+                        for(var i =0;i<this.value.length;i++){
+                            if(reg3.test(this.value)){
+                                _this.$checkLi[2].style.color = 'green';
+                                _this.$checkLi[1].style.color = 'green';
+                                _this.$checkLi[0].style.color = 'green';
+                                _this.timer = setTimeout(function(){
+                                    _this.$checkUl.style.display = 'none';
+                                },3000)
+                                _this.timer = null;
+                                continue;
+                            }
+                            if(reg1.test(this.value[i])){
+                                _this.$checkLi[2].style.color = 'green';
+                                continue;
+                            }
+                            if(reg2.test(this.value[i])){
+                                _this.$checkLi[2].style.color = 'green';
+                                _this.$checkLi[1].style.color = 'green';
+                                continue;
+                            }
+                        }
+                    }
+                }
+            }
+        }());
+        moveSubmit.init('.form-box');
+    </script>
 </body>
+
 </html>
